@@ -9,7 +9,7 @@ from telethon.tl.functions.channels import GetChannelsRequest
 from telethon.tl.functions.users import GetUsersRequest
 from telethon.extensions.markdown import parse
 
-client = TelegramClient('session_file', api_id, api_hash, update_workers=1, spawn_read_thread=False)
+client = TelegramClient('session_file', api_id, api_hash,  spawn_read_thread=False)
 client.start()
 
 # Set Offline to keep things work underground.

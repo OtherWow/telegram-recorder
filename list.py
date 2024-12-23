@@ -1,7 +1,7 @@
 from telethon import TelegramClient
 from data import *
 
-client = TelegramClient('session_file', api_id, api_hash, update_workers=1, spawn_read_thread=False)
+client = TelegramClient('session_file', api_id, api_hash)
 client.start()
 
 F = open("list.txt", "w")
@@ -14,4 +14,3 @@ for single in dialog:
 F.write(result)
 F.close()
 
-print("Information has wrote in list.txt")
