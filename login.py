@@ -17,6 +17,8 @@ listener_98k = 4747422141
 TARGET_CHAT_ID = 2440912648  # <--- 替换成你想监听的目标群组/频道 ID
 # TARGET_CHAT_ID = 1234567890  # <--- 替换成你想监听的目标群组/频道 ID
 cache_dict = {}
+
+
 # 监听指定群组/频道的新消息事件
 @client.on(events.NewMessage(chats=TARGET_CHAT_ID))
 async def handler(event):
@@ -27,7 +29,7 @@ async def handler(event):
         message_text = event.message.message
         log_line = f"【{name}】: {message_text}\n"
         print(log_line)  # 打印到控制台
-        if sender_name not in ["O_1noX","btkopay","wutongshu8899","solana_alerts_dogeebot"]:
+        if sender_name not in ["O_1noX", "btkopay", "wutongshu8899", "solana_alerts_dogeebot"]:
             return
         all_dialogs = await client.get_dialogs()
 
@@ -48,6 +50,7 @@ async def handler(event):
     except Exception as e:
         print(f"处理消息时发生错误: {e}")
 
+
 async def main():
     print("----- 开始获取所有对话 -----")
     # 获取所有对话（包括群组、私聊、频道等）
@@ -67,6 +70,7 @@ async def main():
     print("---------------------------------")
     print("请在上面列表中找出你想监听的群组或频道 ID，将它填到下面的变量中。")
     print("然后保存脚本并重新运行。")
+
 
 if __name__ == '__main__':
     async def run():
@@ -98,5 +102,6 @@ if __name__ == '__main__':
                 print("脚本已手动终止.")
             except Exception as e:
                 print(f"监听过程中发生错误: {e}")
+
 
     asyncio.run(run())
