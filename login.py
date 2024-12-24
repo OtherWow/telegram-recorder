@@ -13,19 +13,35 @@ print(f"Session file will be: {os.path.abspath(session_name + '.session')}")
 client = TelegramClient(session_name, api_id, api_hash)
 
 # 在这里指定你想监听的群组或频道ID
-TARGET_CHAT_ID = -1009876543210  # <--- 替换成你想监听的目标群组/频道 ID
-
+listener_98k = 4747422141
+TARGET_CHAT_ID = 2440912648  # <--- 替换成你想监听的目标群组/频道 ID
+# TARGET_CHAT_ID = 1234567890  # <--- 替换成你想监听的目标群组/频道 ID
+cache_dict = {}
 # 监听指定群组/频道的新消息事件
 @client.on(events.NewMessage(chats=TARGET_CHAT_ID))
 async def handler(event):
     try:
         sender = await event.get_sender()
         sender_name = sender.username if sender.username else (sender.first_name or "无名氏")
+        name = sender.first_name
         message_text = event.message.message
+        log_line = f"【{name}】: {message_text}\n"
+        print(log_line)  # 打印到控制台
+        if sender_name not in ["O_1noX","btkopay","wutongshu8899","solana_alerts_dogeebot"]:
+            return
+        all_dialogs = await client.get_dialogs()
 
-        log_line = f"[{sender_name}] {message_text}\n"
-        print(log_line, end='')  # 打印到控制台
-
+        # 找到标题为 "listener_98k" 或者 ID 为 4747422141 的对话
+        listener_entity = None
+        if listener_98k in cache_dict:
+            listener_entity = cache_dict[listener_98k]
+        else:
+            for d in all_dialogs:
+                if d.entity.id == listener_98k:
+                    listener_entity = d.entity
+                    cache_dict[listener_98k] = listener_entity
+                    break
+        await client.forward_messages(entity=listener_entity, messages=event.message)
         # 将新消息写入到 log.txt 文件（追加写入）
         with open("log.txt", 'a', encoding='utf-8') as f:
             f.write(log_line)
