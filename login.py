@@ -6,7 +6,7 @@ from telethon.errors import SessionPasswordNeededError
 from data import api_id, api_hash  # 确保 data.py 中定义了 api_id 和 api_hash
 
 # 会话名称，可以自己取一个用来保存 session，如 "my_session"
-session_name = 'my_session'
+session_name = 'my_session_17373128730'
 print(f"Session file will be: {os.path.abspath(session_name + '.session')}")
 
 # 创建客户端
@@ -27,7 +27,7 @@ async def handler(event):
         sender_name = sender.username if sender.username else (sender.first_name or "无名氏")
         name = sender.first_name
         message_text = event.message.message
-        log_line = f"【{name}】: {message_text}\n"
+        log_line = f"【{name}】: {message_text}"
         print(log_line)  # 打印到控制台
         if sender_name not in ["O_1noX", "btkopay", "wutongshu8899", "solana_alerts_dogeebot"]:
             return
@@ -46,7 +46,7 @@ async def handler(event):
         await client.forward_messages(entity=listener_entity, messages=event.message)
         # 将新消息写入到 log.txt 文件（追加写入）
         with open("log.txt", 'a', encoding='utf-8') as f:
-            f.write(log_line)
+            f.write(f"{log_line}\n")
     except Exception as e:
         print(f"处理消息时发生错误: {e}")
 
